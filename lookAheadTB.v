@@ -1,9 +1,3 @@
-/*
-module lookAhead
-(	input	[3:0] A, [3:0] B,
-		[0:0] Cin,
-	output	[3:0] C);
-*/
 module lookAheadbench;
 
 	reg [3:0] A, B;
