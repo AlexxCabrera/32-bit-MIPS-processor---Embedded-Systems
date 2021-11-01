@@ -1,17 +1,8 @@
-/*
-module Adder (input A, B, Cin,output Sum, out);
-*/
-
 module FourBitAdder(
 input [3:0] A, [3:0] B, [0:0] Cin,
 output [3:0] Sum, [0:0] Cout );
 
 wire [3:0] Carry;
-
-/*module lookAhead
-(	input	[3:0] A, [3:0] B,
-		[0:0] Cin,
-	output	[3:0] C);*/
 
 lookAhead LA0(A, B, Cin, Carry);
 
