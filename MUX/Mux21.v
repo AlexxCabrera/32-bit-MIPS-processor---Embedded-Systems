@@ -1,5 +1,5 @@
-module Mux21 (input in0, in1, s0, output out);
+module Mux21 (input in0, in1, sel, output out);
 
-assign out = s0 ? in1 : in0;
+assign out = sel ? in1 : in0;
 
 endmodule
