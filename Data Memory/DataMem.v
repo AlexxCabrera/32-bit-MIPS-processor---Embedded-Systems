@@ -8,7 +8,6 @@ reg [31:0] memory [255:0]; // 2^32 slots are available in memory but for this pr
 always@(Address) begin
 	if(MemWrite == 1) begin
 		memory[Address] = Write_data; //writing data to address
-		//Read_data = 0;
 	end
  
 	if(MemRead == 1)begin
