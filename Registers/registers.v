@@ -6,7 +6,9 @@ reg [31:0] registers [31:0];
 always@(posedge clk)begin
 	readData1 = registers[read_register1];
 	readData2 = registers[read_register2];
-	registers[writeReg] = writeData;
+	if(RegWrite == 1) begin
+		registers[writeReg] = writeData;
+	end
 end
 
 endmodule
