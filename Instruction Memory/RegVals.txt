@@ -1,0 +1,34 @@
+/* REGISTER VALUES */
+
+00000050  // add $zero, $zero, $zero
+00200850  // add $at, $at, $zero
+00401050  // add $v0, $v0, $zero
+00601850  // add $v1, $v1, $zero
+00802050  // add $a0, $a0, $zero
+00a02850  // add $a1, $a1, $zero
+00c03050  // add $a2, $a2, $zero
+00e03850  // add $a3, $a3, $zero
+01004050  // add $t0, $t0, $zero
+01204850  // add $t1, $t1, $zero
+01405050  // add $t2, $t2, $zero
+01605850  // add $t3, $t3, $zero
+01806050  // add $t4, $t4, $zero
+01a06850  // add $t5, $t5, $zero
+01c07050  // add $t6, $t6, $zero
+01e07850  // add $t7, $t7, $zero
+02008050  // add $s0, $s0, $zero
+02208850  // add $s1, $s1, $zero
+02409050  // add $s2, $s2, $zero
+02609850  // add $s3, $s3, $zero
+0280a050  // add $s4, $s4, $zero
+02a0a850  // add $s5, $s5, $zero
+02c0b050  // add $s6, $s6, $zero
+02e0b850  // add $s7, $s7, $zero
+0300c050  // add $t8, $t8, $zero
+0320c850  // add $t9, $t9, $zero
+0340d050  // add $k0, $k0, $zero
+0360d850  // add $k1, $k1, $zero
+0380e050  // add $gp, $gp, $zero
+03a0e850  // add $sp, $sp, $zero
+03c0f050  // add $fp, $fp, $zero
+03e0f850  // add $ra, $ra, $zero
