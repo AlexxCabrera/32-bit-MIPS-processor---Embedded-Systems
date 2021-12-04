@@ -1,3 +1,4 @@
+/* 12 ERRORS */
 module ALU(input [31:0] Read_data1, Read_data2, [3:0] ALU_Control,
 output	[31:0] ALUresult);
 
