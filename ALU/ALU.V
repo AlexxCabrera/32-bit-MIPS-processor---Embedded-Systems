@@ -2,8 +2,7 @@ module ALU(input [31:0] Read_data1, Read_data2, [3:0] ALU_Control,
 output	reg [31:0] ALUresult);
 
 wire [31:0] tempAND, tempOR, tempADD, tempSUB, tempSLT, tempNOR, tempDIV, tempMULT;
-reg [31:0] tempMfhi, tempMflo;
-reg [63:0] HiLo;
+	reg [31:0] HI, LO;
 
 
 and_32 and0(.Y(tempAND),.A(Read_data1),.B(Read_data2));
@@ -49,18 +48,12 @@ always@(ALU_Control)begin
 		ALUresult =  tempMULT;
 	end
 
-	else if(ALU_Control == 0111)begin //mult HiLo 
-		HiLo = Read_data1 * Read_data2;
-		tempMflo = HiLo[31:0];
-		tempMfhi = HiLo[63:32];
-		//ALUresult =  tempMfhi;
+	else if(ALU_Control == 0111)begin // mfhi
+		ALUresult =  HI;
 	end
 
-	else if(ALU_Control == 1100)begin //div HiLo
-		HiLo = Read_data1 / Read_data2;
-		tempMflo[31:0] = Read_data1 / Read_data2;
-		tempMfhi[63:32] = Read_data1 % Read_data2;	
-		//ALUresult =  tempMflo;
+	else if(ALU_Control == 1100)begin // mfLo
+		ALUresult =  LO;
 	end
 end
 
