@@ -42,10 +42,14 @@ always@(ALU_Control)begin
 
 	else if(ALU_Control == 0010)begin //div
 		ALUresult =  tempDiv;
+
+		HI = tempRemainder;
+		LO = tempDiv;
 	end
 
 	else if(ALU_Control == 0110)begin //mult
 		ALUresult =  tempMult;
+
 		HI = tempMult[63:32];
 		LO = tempMult[31:0];
 	end
