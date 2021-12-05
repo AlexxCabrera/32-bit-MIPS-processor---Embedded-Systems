@@ -1,64 +1,62 @@
-module ALUcontrol(input /*clk,*/[1:0] ALUOp, [5:0] funct,
-output reg [3:0] ALUInput);
+module ALU(input [31:0] Read_data1, Read_data2, [3:0] ALU_Control,
+output	reg [31:0] ALUresult);
 
-always@(/*posedge clk*/ ALUOp, funct)begin
+wire [31:0] tempAND, tempOR, tempADD, tempSUB, tempSLT, tempNOR, tempDiv, tempRemainder, tempMult;
+reg [31:0] HI, LO;
 
-	if(ALUOp == 2'b00) begin //load or store
-			ALUInput = 4'b0010;
+and_32 and0(.Y(tempAND),.A(Read_data1),.B(Read_data2));
+Or_32 or0(.Y(tempOR),.A(Read_data1),.B(Read_data2));
+thirtytwoBitAdder add0( .A(Read_data1), .B(Read_data2), .Cin(1'b0), .Sub(1'b0), .Sum(tempADD), .Cout() );
+thirtytwoBitAdder sub0( .A(Read_data1), .B(Read_data2), .Cin(1'b0), .Sub(1'b1), .Sum(tempSUB), .Cout() );
+Slt slt0(.Y(tempSLT), .A(Read_data1), .B(Read_data2));
+Nor_32 nor0(.Y(tempNOR),.A(Read_data1),.B(Read_data2));
+Divider div0(.A(Read_data1), .B(Read_data2), .result(tempDiv), .remainder(tempRemainder));
+multiplier_16x16 mult0(.product(tempMult),.A(Read_data1),.B(Read_data2));
+
+
+always@(ALU_Control)begin
+
+	if(ALU_Control == 0000)begin //AND
+		ALUresult = tempAND;
 	end
 
-	else if(ALUOp == 2'b01)begin //Branch eq
-			ALUInput = 4'b0110;
+	else if(ALU_Control == 0001)begin //OR
+		ALUresult = tempOR;
 	end
 
-	else if(ALUOp == 2'b11) begin //add immediate
-			ALUInput = 4'b0010;
+	else if(ALU_Control == 0010)begin //add
+		ALUresult =  tempADD;
 	end
 
-	else if(ALUOp == 2'b11)begin //Type-R: and, or, nor, add, sub, slt, div, mult, mfhi, mflo
-		//and instruction
-		if(funct == 6'b100100)begin 
-			ALUInput = 4'b0000;
-		end
-		//or instruction
-		if(funct == 6'b100101)begin 
-			ALUInput = 4'b0001;
-		end
-		//nor instruction
-		if(funct == 6'b100111)begin 
-			ALUInput = 4'b1100;
-		end
-		//add instruction
-		if(funct == 6'b100000)begin 
-			ALUInput = 4'b0010;
-		end
-		//sub instruction
-		if(funct == 6'b100010)begin 
-			ALUInput = 4'b0110;
-		end
-		//slt instruction
-		if(funct == 6'b101010)begin 
-			ALUInput = 4'b0111;
-		end
-		//div instruction
-		if(funct == 6'b011010)begin 
-			ALUInput = 4'b0010;
-		end
-		//mult instruction
-		if(funct == 6'b011000)begin 
-			ALUInput = 4'b0110;
-		end
-		//mfhi instruction
-		if(funct == 6'b010000)begin 
-			ALUInput = 4'b0111;
-		end
-		//mflo instruction
-		if(funct == 6'b010010)begin 
-			ALUInput = 4'b1100;
-		end
+	else if(ALU_Control == 0110)begin //subtract
+		ALUresult =  tempSUB;
+	end
+
+	else if(ALU_Control == 0111)begin //set-on-less-than
+		ALUresult =  tempSLT;
+	end
+
+	else if(ALU_Control == 1100)begin //NOR
+		ALUresult =  tempNOR;
+	end
+
+	else if(ALU_Control == 0010)begin //div
+		ALUresult =  tempDiv;
+	end
+
+	else if(ALU_Control == 0110)begin //mult
+		ALUresult =  tempMult;
+		HI = tempMult[63:32];
+		LO = tempMult[31:0];
+	end
+
+	else if(ALU_Control == 0111)begin //mfhi
+		ALUresult =  HI;
+	end
+
+	else if(ALU_Control == 1100)begin //mflo
+		ALUresult =  LO;
 	end
 end
 
-
-
-endmodule 
+endmodule
