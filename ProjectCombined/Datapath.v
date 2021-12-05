@@ -21,7 +21,7 @@ wire [4:0] tempRegWrite;
 //PC
 Flipflop FF (.clk(clk), .reset(reset), .q(PC), .d(NextPC) );						//Program Counter registers
 Adder ADD0 (.A(PC), .B(32'b100), .Sum(IncPC) );								//Increments PC by 4
-SLT SLT0 (.A(ExImm), .Out(ExImmPost) );									//Shift add 2
+SLL SLL0 (.A(ExImm), .Out(ExImmPost) );									//Shift left add 2
 Adder ADD1 (.A(ExImmPost), .B(IncPC), .Sum(PreBranchPC) );						//Sign extend PC
 Mux21 MUX0 (.in0(IncPC), .in1(PreBranchPC), .sel(PCSrc), .out(BranchPC) );				//Branch
 Mux21 MUX1 (BranchPC, {IncPC[31:28], Instruction[25:0], 2'b00}, Jump, NextPC);				//Jump
