@@ -1,22 +1,17 @@
-`define MEM_SIZE 128
-`define REG_INIT "InitReg.txt"
-`define REG_VAL "RegVals.txt"
+`timescale 1ns/1ns
 
-module InstrMemory (clk, Address, Instruction);
-  input clk;
-  input [31:0] Address;
-  output [31:0] Instruction;
+module InstructionMem(Address, Instruction);
 
-  reg [31:0] Imem [0:`MEM_SIZE-1];  
+input [31:0] Address;
+output [31:0] Instruction;
 
-  parameter initRegisters = `REG_INIT;
-  parameter regVals       = `REG_VAL;
- 
- initial begin
+reg [31:0] Imem[255:0];
     
-    $readmemh("instructions_list.txt", Imem, 1, `MEM_SIZE - 83);             //MEM_SIZE - 83 can be modified to depending on adding or removing instructions
+initial
+    $readmemh("instructions.txt", Imem);
+    
+  assign Instruction = Imem[Address/4]; 
 
-  end
-  assign Instruction = Imem[Address];
- 
+
+
 endmodule
