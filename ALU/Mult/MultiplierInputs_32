@@ -1,0 +1,8 @@
+`timescale 1ns/1ns
+
+module MultiplierInputs_32(output [31:0] C, input [31:0] A, [0:0] B);
+
+assign C = {(A[31]&B),(A[30]&B),(A[29]&B),(A[28]&B),(A[27]&B),(A[26]&B),(A[25]&B),(A[24]&B),(A[23]&B),(A[22]&B),(A[21]&B),(A[20]&B),(A[19]&B),(A[18]&B),(A[17]&B),(A[16]&B),
+		(A[15]&B),(A[14]&B),(A[13]&B),(A[12]&B),(A[11]&B),(A[10]&B),(A[9]&B),(A[8]&B),(A[7]&B),(A[6]&B),(A[5]&B),(A[4]&B),(A[3]&B),(A[2]&B),(A[1]&B),(A[0]&B)};
+
+endmodule
